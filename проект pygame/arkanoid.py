@@ -95,10 +95,10 @@ class Ball(pygame.sprite.Sprite):
         if plat and self.bottom <= plat.rect.y and self.vy > 0:
             self.vy = -self.vy
             self.plusW()
-        sprts = pygame.sprite.spritecollide(self, block_sprites, True)
-        if sprts:
-            for spr in sprts:
-                self.colliding(spr)
+        spr = pygame.sprite.spritecollideany(self, block_sprites)
+        if spr:
+            self.colliding(spr)
+            spr.kill()
         if self.rect.x < 0 or self.rect.x + 24 > width:
             self.vx = -self.vx
         if self.rect.y < 0:
